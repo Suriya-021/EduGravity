@@ -1,73 +1,66 @@
-# React + TypeScript + Vite
+# 🌍 EduGravity (EduSocial GeoBot)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-Currently, two official plugins are available:
+**EduGravity** is an interactive educational web platform designed to teach geography through an immersive 3D experience. It features an AI-powered Robot Tutor that communicates in Tamil, helping students explore continents using Google Earth visualizations.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+-   **3D Earth Visualization**: Full-screen, interactive 3D globe using Google Maps Satellite view.
+-   **AI Robot Tutor**: An animated AI avatar that serves as a friendly guide.
+-   **Tamil Voice Interaction**: Integrated with **Sarvam AI** for high-quality Tamil Text-to-Speech (TTS).
+-   **Intelligent Q&A**: Simply ask "Tell me about Asia" or "What is Antarctica?", and the bot will fly you there and explain facts in Tamil.
+-   **Glassmorphism UI**: A modern, sleek user interface designed for engagement.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+-   **Frontend**: React (v18), TypeScript
+-   **Build Tool**: Vite
+-   **Styling**: Tailwind CSS (with Glassmorphism utilities)
+-   **Maps**: Google Maps JavaScript API
+-   **AI/Voice**: Sarvam AI API
+-   **State Management**: Zustand
+-   **Animations**: Framer Motion
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Installation & Setup
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/Suriya-021/EduGravity.git
+    cd EduGravity
+    ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3.  **Environment Configuration**
+    Create a `.env` file in the root directory and add your API keys:
+    ```env
+    VITE_GOOGLE_MAPS_API_KEY=your_google_maps_key
+    VITE_SARVAM_API_KEY=your_sarvam_api_key
+    ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+4.  **Run Locally**
+    ```bash
+    npm run dev
+    ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🎮 How to Use
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1.  Open the app in your browser.
+2.  **Explore**: Click on the suggestion chips (e.g., "Asia", "Africa") to fly to that continent.
+3.  **Chat**: Type questions like "Tell me about South America" in the chat box.
+4.  **Listen**: The AI Robot will answer and speak in Tamil!
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to wait for future updates or submit a Pull Request.
+
+---
+
+Built with ❤️ by [Suriya-021](https://github.com/Suriya-021)
