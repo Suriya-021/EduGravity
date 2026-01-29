@@ -1,73 +1,49 @@
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import React, { useCallback, useState } from 'react';
-import { Loader2 } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import { useMapStore } from '../../store/useMapStore';
+import 'leaflet/dist/leaflet.css';
 
-const containerStyle = {
-    width: '100%',
-    height: '100vh'
-};
+// Controller component to handle programmatic navigation
+const MapController = () => {
+    const map = useMap();
+    const target = useMapStore((state) => state.target);
 
-const defaultCenter = {
-    lat: 20,
-    lng: 0
-};
+    useEffect(() => {
+        if (target) {
+            // Leaflet zoom levels are generally different from Google Maps
+            // Google Maps used Zoom 2 for world, Leaflet might need Zoom 3 or 4
+            // We'll stick to store values for now but might need adjustment
+            map.flyTo([target.lat, target.lng], target.zoom, {
+                duration: 2 // Animation duration in seconds
+            });
+        }
+    }, [target, map]);
 
-const options = {
-    disableDefaultUI: true,
-    zoomControl: false,
-    mapTypeId: 'satellite',
-    tilt: 45,
+    return null;
 };
 
 export const EarthViewer: React.FC = () => {
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "YOUR_KEY_HERE"
-    });
+    const apiKey = import.meta.env.VITE_STADIA_MAPS_API_KEY;
 
-    const [map, setMap] = useState<google.maps.Map | null>(null);
-    const target = useMapStore((state) => state.target);
-
-    React.useEffect(() => {
-        if (map) {
-            map.panTo({ lat: target.lat, lng: target.lng });
-            map.setZoom(target.zoom);
-            map.setTilt(target.tilt);
-        }
-    }, [map, target]);
-
-    const onLoad = useCallback(function callback(map: google.maps.Map) {
-        setMap(map);
-    }, []);
-
-    const onUnmount = useCallback(function callback() {
-        setMap(null);
-    }, []);
-
-    if (!isLoaded) {
-        return (
-            <div className="w-full h-screen flex items-center justify-center bg-gray-900 text-white">
-                <div className="flex flex-col items-center gap-4">
-                    <Loader2 className="w-10 h-10 animate-spin text-blue-500" />
-                    <p>Initializing Earth View...</p>
-                </div>
-            </div>
-        );
+    if (!apiKey) {
+        return <div className="text-white flex items-center justify-center h-screen bg-neutral-900">Map Key Missing</div>;
     }
 
     return (
-        <div className="absolute inset-0 z-0">
-            <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={defaultCenter}
+        <div className="absolute inset-0 z-0 bg-neutral-900">
+            <MapContainer
+                center={[20, 0]}
                 zoom={2}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-                options={options}
+                style={{ height: '100vh', width: '100%' }}
+                zoomControl={false}
+                attributionControl={false}
             >
-                { /* Child components, such as markers, info windows, etc. */}
-            </GoogleMap>
+                <TileLayer
+                    url={`https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg?api_key=${apiKey}`}
+                    maxZoom={20}
+                />
+                <MapController />
+            </MapContainer>
         </div>
     );
 }

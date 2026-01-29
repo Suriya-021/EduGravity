@@ -20,7 +20,7 @@
 -   **Frontend**: React (v18), TypeScript
 -   **Build Tool**: Vite
 -   **Styling**: Tailwind CSS (with Glassmorphism utilities)
--   **Maps**: Google Maps JavaScript API
+-   **Maps**: Leaflet (React Leaflet) + Stadia Maps Tiles
 -   **AI/Voice**: Sarvam AI API
 -   **State Management**: Zustand
 -   **Animations**: Framer Motion
@@ -41,7 +41,7 @@
 3.  **Environment Configuration**
     Create a `.env` file in the root directory and add your API keys:
     ```env
-    VITE_GOOGLE_MAPS_API_KEY=your_google_maps_key
+    VITE_STADIA_MAPS_API_KEY=your_stadia_maps_key
     VITE_SARVAM_API_KEY=your_sarvam_api_key
     ```
 

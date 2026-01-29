@@ -4,18 +4,18 @@ interface Coordinates {
     lat: number;
     lng: number;
     zoom: number;
-    tilt: number;
+    tilt: number; // Kept for interface compatibility, though Leaflet 2D doesn't use tilt like GMaps
 }
 
 export const CONTINENTS: Record<string, Coordinates> = {
-    asia: { lat: 34.0479, lng: 100.6197, zoom: 3, tilt: 45 },
-    africa: { lat: -8.7832, lng: 34.5085, zoom: 3, tilt: 45 },
-    north_america: { lat: 54.5260, lng: -105.2551, zoom: 3, tilt: 45 },
-    south_america: { lat: -8.7832, lng: -55.4915, zoom: 3, tilt: 45 },
-    antarctica: { lat: -82.8628, lng: 135.0000, zoom: 3, tilt: 0 },
-    europe: { lat: 54.5260, lng: 15.2551, zoom: 4, tilt: 45 },
-    australia: { lat: -25.2744, lng: 133.7751, zoom: 4, tilt: 45 },
-    default: { lat: 20, lng: 0, zoom: 2, tilt: 45 }
+    asia: { lat: 34.0479, lng: 100.6197, zoom: 3, tilt: 0 },
+    africa: { lat: -8.7832, lng: 34.5085, zoom: 3, tilt: 0 },
+    north_america: { lat: 54.5260, lng: -105.2551, zoom: 3, tilt: 0 },
+    south_america: { lat: -8.7832, lng: -55.4915, zoom: 3, tilt: 0 },
+    antarctica: { lat: -82.8628, lng: 135.0000, zoom: 2, tilt: 0 }, // Lower zoom for Antarctica
+    europe: { lat: 54.5260, lng: 15.2551, zoom: 4, tilt: 0 },
+    australia: { lat: -25.2744, lng: 133.7751, zoom: 4, tilt: 0 },
+    default: { lat: 20, lng: 0, zoom: 2, tilt: 0 }
 };
 
 interface MapState {
