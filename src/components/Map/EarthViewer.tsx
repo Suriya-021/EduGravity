@@ -34,6 +34,16 @@ export const EarthViewer: React.FC = () => {
                 sceneModePicker={false}
                 selectionIndicator={false}
                 infoBox={false}
+                // High DPI Fixes
+                useDefaultRenderLoop={true}
+                resolutionScale={window.devicePixelRatio}
+                contextOptions={{
+                    webgl: {
+                        alpha: true,
+                        antialias: true,
+                        preserveDrawingBuffer: true
+                    }
+                }}
             >
                 {/* Stadia Maps Layer */}
                 <ImageryLayer imageryProvider={imageryProvider} />
