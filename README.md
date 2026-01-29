@@ -20,7 +20,7 @@
 -   **Frontend**: React (v18), TypeScript
 -   **Build Tool**: Vite
 -   **Styling**: Tailwind CSS (with Glassmorphism utilities)
--   **Maps**: Leaflet (React Leaflet) + Stadia Maps Tiles
+-   **Maps**: CesiumJS (Resium) + Stadia Maps (Satellite)
 -   **AI/Voice**: Sarvam AI API
 -   **State Management**: Zustand
 -   **Animations**: Framer Motion

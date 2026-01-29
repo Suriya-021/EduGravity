@@ -3,19 +3,20 @@ import { create } from 'zustand';
 interface Coordinates {
     lat: number;
     lng: number;
-    zoom: number;
-    tilt: number; // Kept for interface compatibility, though Leaflet 2D doesn't use tilt like GMaps
+    height: number; // Height in meters above ellipsoid
+    heading: number; // Rotation
+    pitch: number; // Tilt
 }
 
 export const CONTINENTS: Record<string, Coordinates> = {
-    asia: { lat: 34.0479, lng: 100.6197, zoom: 3, tilt: 0 },
-    africa: { lat: -8.7832, lng: 34.5085, zoom: 3, tilt: 0 },
-    north_america: { lat: 54.5260, lng: -105.2551, zoom: 3, tilt: 0 },
-    south_america: { lat: -8.7832, lng: -55.4915, zoom: 3, tilt: 0 },
-    antarctica: { lat: -82.8628, lng: 135.0000, zoom: 2, tilt: 0 }, // Lower zoom for Antarctica
-    europe: { lat: 54.5260, lng: 15.2551, zoom: 4, tilt: 0 },
-    australia: { lat: -25.2744, lng: 133.7751, zoom: 4, tilt: 0 },
-    default: { lat: 20, lng: 0, zoom: 2, tilt: 0 }
+    asia: { lat: 34.0479, lng: 100.6197, height: 10000000, heading: 0, pitch: -90 },
+    africa: { lat: -8.7832, lng: 34.5085, height: 10000000, heading: 0, pitch: -90 },
+    north_america: { lat: 54.5260, lng: -105.2551, height: 10000000, heading: 0, pitch: -90 },
+    south_america: { lat: -8.7832, lng: -55.4915, height: 10000000, heading: 0, pitch: -90 },
+    antarctica: { lat: -82.8628, lng: 135.0000, height: 5000000, heading: 0, pitch: -45 },
+    europe: { lat: 54.5260, lng: 15.2551, height: 5000000, heading: 0, pitch: -60 },
+    australia: { lat: -25.2744, lng: 133.7751, height: 5000000, heading: 0, pitch: -60 },
+    default: { lat: 20, lng: 0, height: 20000000, heading: 0, pitch: -90 }
 };
 
 interface MapState {

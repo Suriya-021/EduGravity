@@ -1,49 +1,54 @@
-import React, { useEffect } from 'react';
-import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import React from 'react';
+import { Viewer, CameraFlyTo, ImageryLayer } from 'resium';
+import { Cartesian3, Math as CesiumMath, UrlTemplateImageryProvider } from 'cesium';
 import { useMapStore } from '../../store/useMapStore';
-import 'leaflet/dist/leaflet.css';
 
-// Controller component to handle programmatic navigation
-const MapController = () => {
-    const map = useMap();
-    const target = useMapStore((state) => state.target);
-
-    useEffect(() => {
-        if (target) {
-            // Leaflet zoom levels are generally different from Google Maps
-            // Google Maps used Zoom 2 for world, Leaflet might need Zoom 3 or 4
-            // We'll stick to store values for now but might need adjustment
-            map.flyTo([target.lat, target.lng], target.zoom, {
-                duration: 2 // Animation duration in seconds
-            });
-        }
-    }, [target, map]);
-
-    return null;
-};
+// Cesium CSS is handled by vite-plugin-cesium or can be imported if needed
+// import "cesium/Build/Cesium/Widgets/widgets.css";
 
 export const EarthViewer: React.FC = () => {
     const apiKey = import.meta.env.VITE_STADIA_MAPS_API_KEY;
+    const target = useMapStore((state) => state.target);
 
     if (!apiKey) {
         return <div className="text-white flex items-center justify-center h-screen bg-neutral-900">Map Key Missing</div>;
     }
 
+    // Create the imagery provider for Stadia
+    const imageryProvider = new UrlTemplateImageryProvider({
+        url: `https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}.jpg?api_key=${apiKey}`,
+        credit: 'Stadia Maps',
+        maximumLevel: 20,
+    });
+
     return (
-        <div className="absolute inset-0 z-0 bg-neutral-900">
-            <MapContainer
-                center={[20, 0]}
-                zoom={2}
-                style={{ height: '100vh', width: '100%' }}
-                zoomControl={false}
-                attributionControl={false}
+        <div className="absolute inset-0 z-0 bg-black">
+            <Viewer
+                full
+                timeline={false}
+                animation={false}
+                baseLayerPicker={false}
+                geocoder={false}
+                homeButton={false}
+                navigationHelpButton={false}
+                sceneModePicker={false}
+                selectionIndicator={false}
+                infoBox={false}
             >
-                <TileLayer
-                    url={`https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.jpg?api_key=${apiKey}`}
-                    maxZoom={20}
+                {/* Stadia Maps Layer */}
+                <ImageryLayer imageryProvider={imageryProvider} />
+
+                {/* Camera Controller */}
+                <CameraFlyTo
+                    destination={Cartesian3.fromDegrees(target.lng, target.lat, target.height)}
+                    orientation={{
+                        heading: CesiumMath.toRadians(target.heading),
+                        pitch: CesiumMath.toRadians(target.pitch),
+                        roll: 0
+                    }}
+                    duration={3} // smooth flight
                 />
-                <MapController />
-            </MapContainer>
+            </Viewer>
         </div>
     );
-}
+};
